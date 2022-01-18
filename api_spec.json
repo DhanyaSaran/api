@@ -1,0 +1,380 @@
+[
+  {
+    "name": "Client Info",
+    "method": "GET",
+    "url": "/client/info",
+    "response": {
+      "success": true,
+      "message": "",
+      "data": {
+        "client_id": "ABC",
+        "org_name": "BOLT LTD",
+        "env": "Production"
+      }
+    }
+  },
+  {
+    "name": "Live Cluster Info",
+    "method": "GET",
+    "url": "/cluster/live",
+    "response": {
+      "success": true,
+      "message": "",
+      "data": {
+        "asof": "20220123 12:30:23",
+        "services": [
+          {
+            "name": "kafka",
+            /* GREEN, YELLOW, RED, GREY */
+            "state": "GREEN",
+            "summary": "qed 25M | in 500KRps | out 450KRps",
+            "metrics": [
+              {
+                "label": "Inflow",
+                "v1": "25MBps",
+                "v2": "500KRps"
+              },
+              {
+                "label": "Outflow",
+                "v1": "20MBps",
+                "v2": "400KRps"
+              }
+            ]
+          },
+          {
+            "name": "indexer",
+            "state": "YELLOW",
+            "summary": "latency 20s | throughput 450KRps / 30MBps",
+            "metrics": [
+              {
+                "label": "Kafka Consumption",
+                "v1": "30MBps",
+                "v2": "450KRps"
+              },
+              {
+                "label": "Json Parser",
+                "v1": "20MBps",
+                "v2": "200KRps"
+              }
+            ]
+          },
+          {
+            "name": "tail_server",
+            "state": "GREY",
+            "summary": "stopped at today 3:50PM",
+            "metrics": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Metrics",
+    "method": "GET",
+    "url": "/metrics",
+    "response": {
+      "success": true,
+      "message": "",
+      "data": {
+        "metrics": [
+          {
+            "group": "logs",
+            "title": "Logs Pipeline",
+            "values": [
+              {
+                "label": "Queued",
+                "v1": "100GB",
+                "v2": "100M records"
+              },
+              {
+                "label": "Indexers",
+                "v1": "4",
+                "v2": "5 Cores | 8GB RAM"
+              }
+            ]
+          },
+          {
+            "group": "search",
+            "title": "Search Queries",
+            "values": [
+              {
+                "label": "Queries",
+                "v1": "250 total",
+                "v2": "190 normal | 60 regex | 30 downloads"
+              },
+              {
+                "label": "Performance",
+                "v1": "2.3s Avg",
+                "v2": "Min 0.6s | Max 6.2s | 99P 2.4s"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Events",
+    "method": "GET",
+    "url": "/events",
+    "response": {
+      "success": true,
+      "message": "",
+      "data": {
+        "events": [
+          {
+            "timestamp": "20220123100203",
+            "type": "Search File Created",
+            "event_data": {
+              "timestamp": 20220123090405,
+              "record_count": 100,
+              "stage_data_file": "202201/23/abcd.data",
+              "index_data_file": "202201/23/abcd.index"
+            }
+          },
+          {
+            "timestamp": "20220123100203",
+            "type": "Alert Metric",
+            "event_data": {
+              "timestamp": 20220123090405,
+              "count": 100,
+              "metric_name": "exception_log",
+              "keys": {
+                "appp_id": "lending.app",
+                "category": "error"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Config",
+    "method": "GET",
+    "url": "/config",
+    "response": {
+      "success": true,
+      "message": "",
+      "data": {
+        "config": [
+          {
+            "group": "indexer",
+            "key": "kafka.poll.timeout.ms",
+            "value": 100
+          },
+          {
+            "group": "search",
+            "key": "search.query.timeout.seconds",
+            "value": 30
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Live Cluster Servers",
+    "method": "GET",
+    "url": "/cluster/live/servers",
+    "response": {
+      "success": true,
+      "message": "",
+      "data": {
+        "asof": "20220123 12:30:23",
+        "servers": [
+          {
+            "type": "indexer",
+            "title": "Indexers",
+            "state": "GREEN",
+            "instance_count": 4,
+            "summary": "qed 25M | in 500KRps | out 450KRps",
+            "instances": [
+              {
+                "id": "IDX_17263",
+                "start_time": 20220121092345,
+                "runtime": "36hrs 20 mins",
+                "status": "running"
+              },
+              {
+                "id": "IDX_178393",
+                "start_time": 20220121092345,
+                "runtime": "26hrs 13 mins",
+                "status": "paused"
+              }
+            ]
+          },
+          {
+            "type": "search",
+            "title": "Search Servers",
+            "state": "GREEN",
+            "instance_count": 3,
+            "summary": "qed 25M | in 500KRps | out 450KRps",
+            "instances": [
+              {
+                "id": "SRCG_17263",
+                "date_range": "20220121 10AM - 20220121 4PM",
+                "start_time": 20220121092345,
+                "runtime": "36hrs 20 mins",
+                "status": "running"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Cluster History Servers",
+    "method": "GET",
+    "url": "/cluster/history/servers",
+    "response": {
+      "success": true,
+      "message": "",
+      "data": {
+        "asof": "20220123 12:30:23",
+        "servers": [
+          {
+            "type": "indexer",
+            "title": "Indexers",
+            "state": "GREEN",
+            "instance_count": 4,
+            "summary": "qed 25M | in 500KRps | out 450KRps",
+            "instances": [
+              {
+                "id": "IDX_17263",
+                "start_time": 20220121092345,
+                "runtime": "36hrs 20 mins",
+                "status": "terminated"
+              },
+              {
+                "id": "IDX_178393",
+                "start_time": 20220121092345,
+                "runtime": "26hrs 13 mins",
+                "status": "terminated"
+              }
+            ]
+          },
+          {
+            "type": "search",
+            "title": "Search Servers",
+            "state": "GREEN",
+            "instance_count": 3,
+            "summary": "qed 25M | in 500KRps | out 450KRps",
+            "instances": [
+              {
+                "id": "SRCG_17263",
+                "date_range": "20220121 10AM - 20220121 4PM",
+                "start_time": 20220121092345,
+                "runtime": "36hrs 20 mins",
+                "status": "terminated"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Server Details",
+    "method": "GET",
+    "url": "/cluster/instance/{server_id}",
+    "response": {
+      "success": true,
+      "message": "",
+      "data": {
+        "name": "indexer",
+        "state": "YELLOW",
+        "summary": "latency 20s | throughput 450KRps / 30MBps",
+        "metrics": [
+          {
+            "label": "Kafka Consumption",
+            "v1": "30MBps",
+            "v2": "450KRps"
+          },
+          {
+            "label": "Json Parser",
+            "v1": "20MBps",
+            "v2": "200KRps"
+          }
+        ],
+        "config": [
+          {
+            "group": "indexer",
+            "key": "kafka.poll.timeout.ms",
+            "value": 100
+          },
+          {
+            "group": "indexer",
+            "key": "search.query.timeout.seconds",
+            "value": 30
+          }
+        ],
+        "events": [
+          {
+            "timestamp": "20220123100203",
+            "type": "Search File Created",
+            "event_data": {
+              "timestamp": 20220123090405,
+              "record_count": 100,
+              "stage_data_file": "202201/23/abcd.data",
+              "index_data_file": "202201/23/abcd.index"
+            }
+          },
+          {
+            "timestamp": "20220123100203",
+            "type": "Alert Metric",
+            "event_data": {
+              "timestamp": 20220123090405,
+              "count": 100,
+              "metric_name": "exception_log",
+              "keys": {
+                "appp_id": "lending.app",
+                "category": "error"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Start Instance",
+    "method": "POST",
+    "url": "/action/instance/start",
+    "request": {
+      "user_id": "",
+      "config": {
+        "key": "value"
+      }
+    },
+    "response": {
+      "success": true,
+      "message": ""
+    }
+  },
+  {
+    "name": "[Stop|Pause|Resume] Instance",
+    "method": "POST",
+    "url": "/action/instance/[stop|pause|resume]",
+    "request": {
+      "instance_id": "IDX_172920",
+      "user_id": ""
+    },
+    "response": {
+      "success": true,
+      "message": ""
+    }
+  },
+  {
+    "name": "[Stop|Pause|Resume] Cluster",
+    "method": "POST",
+    "url": "/action/cluster/[stop|pause|resume]",
+    "request": {
+      "user_id": ""
+    },
+    "response": {
+      "success": true,
+      "message": ""
+    }
+  }
+]
